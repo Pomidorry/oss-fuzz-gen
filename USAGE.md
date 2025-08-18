@@ -64,6 +64,11 @@ Then set it as an ENV variable:
 export OPENAI_API_KEY='<your-api-key>'
 ```
 
+If you are going to use Qwen:
+```bash
+export OPENAI_API_URL='<url-where-model-hosted>'
+```
+
 ##### OpenAI API Key on Azure
 
 If your OpenAI API key is hosted on Azure, you need the specified Endpoint, API key, and the API version (optional).

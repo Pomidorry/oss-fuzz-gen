@@ -231,8 +231,8 @@ class LLM:
     """Returns a new chat session."""
 
 
-class GPT(LLM):
-  """OpenAI's GPT model encapsulator."""
+class OpenAI(LLM):
+  """OpenAI's model encapsulator."""
 
   name = 'gpt-3.5-turbo'
 
@@ -397,26 +397,46 @@ class GPT(LLM):
       content = choice.message.content
       self._save_output(index, content, response_dir)
 
+class LocalOpenAI(OpenAI):
+  """OpenAI's on local server models."""
 
-class GPT4(GPT):
+  name = 'Qwen2.5-Coder-32B-Instruct'
+  def _get_client(self):
+    """Returns the OpenAI client for local models"""
+    return openai.OpenAI(
+      api_key=os.getenv('OPENAI_API_KEY'),
+      base_url=os.getenv('OPENAI_API_URL')
+    )
+
+class Qwen25Coder(OpenAI):
+  """Qwen2.5-Coder-32B-Instruct on local server."""
+
+  name = 'Qwen2.5-Coder-32B-Instruct'
+
+class Gemma3(OpenAI):
+  """gemma-3-27b-it on local server."""
+
+  name = 'gemma-3-27b-it'
+
+class GPT4(OpenAI):
   """OpenAI's GPT-4 model."""
 
   name = 'gpt-4'
 
 
-class GPT41(GPT):
+class GPT41(OpenAI):
   """OpenAI's GPT-4.1 model."""
 
   name = 'gpt-4.1'
 
 
-class GPT41Mini(GPT):
+class GPT41Mini(OpenAI):
   """OpenAI's GPT-4.1-Mini model."""
 
   name = 'gpt-4.1-mini'
 
 
-class GPT4o(GPT):
+class GPT4o(OpenAI):
   """OpenAI's GPT-4o model."""
 
   name = 'gpt-4o'
@@ -424,7 +444,7 @@ class GPT4o(GPT):
   _gpt_ai_model = 'gpt-4o'
 
 
-class ChatGPT4oLatest(GPT):
+class ChatGPT4oLatest(OpenAI):
   """OpenAI's chatgpt-4o-latest model."""
 
   name = 'chatgpt-4o-latest'
@@ -432,19 +452,19 @@ class ChatGPT4oLatest(GPT):
   _gpt_ai_model = 'gpt-4o'
 
 
-class GPT4oMini(GPT):
+class GPT4oMini(OpenAI):
   """OpenAI's GPT-4o-mini model."""
 
   name = 'gpt-4o-mini'
 
 
-class GPT4Turbo(GPT):
+class GPT4Turbo(OpenAI):
   """OpenAI's GPT-4 Turbo model."""
 
   name = 'gpt-4-turbo'
 
 
-class ChatGPT(GPT):
+class ChatGPT(OpenAI):
   """OpenAI's GPT model with chat session."""
 
   name = 'chatgpt-3.5-turbo'
@@ -513,7 +533,7 @@ class ChatGPT4Turbo(ChatGPT):
   name = 'chatgpt-4-turbo'
 
 
-class AzureGPT(GPT):
+class AzureGPT(OpenAI):
   """Azure's GPT model."""
 
   name = 'gpt-3.5-turbo-azure'
