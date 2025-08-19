@@ -400,7 +400,7 @@ class OpenAI(LLM):
 class LocalOpenAI(OpenAI):
   """OpenAI's on local server models."""
 
-  name = 'Qwen2.5-Coder-32B-Instruct'
+  name = 'Qwen3-Coder-30B-A3B-Instruct-FP8'
   def _get_client(self):
     """Returns the OpenAI client for local models"""
     return openai.OpenAI(
@@ -408,12 +408,7 @@ class LocalOpenAI(OpenAI):
       base_url=os.getenv('OPENAI_API_URL')
     )
 
-class Qwen25Coder(OpenAI):
-  """Qwen2.5-Coder-32B-Instruct on local server."""
-
-  name = 'Qwen2.5-Coder-32B-Instruct'
-
-class Gemma3(OpenAI):
+class Gemma3(LocalOpenAI):
   """gemma-3-27b-it on local server."""
 
   name = 'gemma-3-27b-it'
